@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Introduction to RBiotools</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-a202ed359b7240dcab911ed64cbd0efc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./about.html">
+    <span class="navbar-title">RBiotools</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> <i class="bi bi-house-fill" role="img">
+</i> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./getting_started.html" aria-current="page"> <i class="bi bi-info" role="img">
+</i> 
+<span class="menu-text">Getting Started</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section-1-prerequisites-installation" id="toc-section-1-prerequisites-installation" class="nav-link active" data-scroll-target="#section-1-prerequisites-installation">Section 1: Prerequisites &amp; Installation</a>
+  <ul class="collapse">
+  <li><a href="#install-r-and-rstudio" id="toc-install-r-and-rstudio" class="nav-link" data-scroll-target="#install-r-and-rstudio">1. Install R and RStudio</a></li>
+  <li><a href="#install-build-tools" id="toc-install-build-tools" class="nav-link" data-scroll-target="#install-build-tools">2. Install Build Tools</a></li>
+  <li><a href="#setup-your-workspace" id="toc-setup-your-workspace" class="nav-link" data-scroll-target="#setup-your-workspace">3. Setup Your Workspace</a></li>
+  <li><a href="#download-workshop-files" id="toc-download-workshop-files" class="nav-link" data-scroll-target="#download-workshop-files">4. Download Workshop Files</a></li>
+  <li><a href="#launch-verify" id="toc-launch-verify" class="nav-link" data-scroll-target="#launch-verify">5. Launch &amp; Verify</a></li>
+  </ul></li>
+  <li><a href="#section-2-install-packages-and-rbiotools" id="toc-section-2-install-packages-and-rbiotools" class="nav-link" data-scroll-target="#section-2-install-packages-and-rbiotools">Section 2: Install Packages and RBioTools</a>
+  <ul class="collapse">
+  <li><a href="#install-dependencies" id="toc-install-dependencies" class="nav-link" data-scroll-target="#install-dependencies">1. Install Dependencies</a></li>
+  <li><a href="#install-bioconductor-packages" id="toc-install-bioconductor-packages" class="nav-link" data-scroll-target="#install-bioconductor-packages">2. Install BioConductor Packages</a></li>
+  <li><a href="#install-helper-tools-windows-only" id="toc-install-helper-tools-windows-only" class="nav-link" data-scroll-target="#install-helper-tools-windows-only">3. Install Helper Tools (Windows Only)</a></li>
+  <li><a href="#load-libraries" id="toc-load-libraries" class="nav-link" data-scroll-target="#load-libraries">4. Load Libraries</a></li>
+  <li><a href="#set-the-working-directory" id="toc-set-the-working-directory" class="nav-link" data-scroll-target="#set-the-working-directory">5. Set the Working Directory</a></li>
+  <li><a href="#install-rbiotools" id="toc-install-rbiotools" class="nav-link" data-scroll-target="#install-rbiotools">6. Install RBioTools</a></li>
+  <li><a href="#final-check" id="toc-final-check" class="nav-link" data-scroll-target="#final-check">7. Final Check</a></li>
+  </ul></li>
+  <li><a href="#section-3-identify-the-organisms" id="toc-section-3-identify-the-organisms" class="nav-link" data-scroll-target="#section-3-identify-the-organisms">Section 3: Identify the Organisms</a>
+  <ul class="collapse">
+  <li><a href="#create-a-list-of-organisms" id="toc-create-a-list-of-organisms" class="nav-link" data-scroll-target="#create-a-list-of-organisms">3.1 Create a List of Organisms</a>
+  <ul class="collapse">
+  <li><a href="#define-the-e.-coli-list" id="toc-define-the-e.-coli-list" class="nav-link" data-scroll-target="#define-the-e.-coli-list">1. Define the <em>E. coli</em> List</a></li>
+  <li><a href="#define-the-proteobacteria-list" id="toc-define-the-proteobacteria-list" class="nav-link" data-scroll-target="#define-the-proteobacteria-list">2. Define the Proteobacteria List</a></li>
+  </ul></li>
+  <li><a href="#verify-and-download-data" id="toc-verify-and-download-data" class="nav-link" data-scroll-target="#verify-and-download-data">3.2 Verify and Download Data</a>
+  <ul class="collapse">
+  <li><a href="#checking-the-e.-coli-list" id="toc-checking-the-e.-coli-list" class="nav-link" data-scroll-target="#checking-the-e.-coli-list">Checking the <em>E. coli</em> List</a></li>
+  <li><a href="#checking-the-proteobacteria-list" id="toc-checking-the-proteobacteria-list" class="nav-link" data-scroll-target="#checking-the-proteobacteria-list">Checking the Proteobacteria List</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#section-4-explore-functions-that-make-plots-and-figures" id="toc-section-4-explore-functions-that-make-plots-and-figures" class="nav-link" data-scroll-target="#section-4-explore-functions-that-make-plots-and-figures">Section 4: Explore functions that make plots and figures</a>
+  <ul class="collapse">
+  <li><a href="#dendrograms" id="toc-dendrograms" class="nav-link" data-scroll-target="#dendrograms">4.1 Dendrograms</a>
+  <ul class="collapse">
+  <li><a href="#dendrogram-for-e.-coli" id="toc-dendrogram-for-e.-coli" class="nav-link" data-scroll-target="#dendrogram-for-e.-coli">Dendrogram for <em>E. coli</em></a></li>
+  <li><a href="#dendrogram-for-proteobacteria" id="toc-dendrogram-for-proteobacteria" class="nav-link" data-scroll-target="#dendrogram-for-proteobacteria">Dendrogram for Proteobacteria</a></li>
+  </ul></li>
+  <li><a href="#genome-atlas" id="toc-genome-atlas" class="nav-link" data-scroll-target="#genome-atlas">4.2 Genome Atlas</a>
+  <ul class="collapse">
+  <li><a href="#analyze-a-single-organism" id="toc-analyze-a-single-organism" class="nav-link" data-scroll-target="#analyze-a-single-organism">Analyze a Single Organism</a></li>
+  </ul></li>
+  <li><a href="#amino-acid-usage-plot" id="toc-amino-acid-usage-plot" class="nav-link" data-scroll-target="#amino-acid-usage-plot">4.3 Amino Acid Usage Plot</a></li>
+  <li><a href="#codon-heat-map" id="toc-codon-heat-map" class="nav-link" data-scroll-target="#codon-heat-map">4.4 Codon Heat Map</a></li>
+  <li><a href="#blast-matrix" id="toc-blast-matrix" class="nav-link" data-scroll-target="#blast-matrix">4.5 Blast Matrix</a>
+  <ul class="collapse">
+  <li><a href="#understanding-the-homology-matrix" id="toc-understanding-the-homology-matrix" class="nav-link" data-scroll-target="#understanding-the-homology-matrix">Understanding the Homology Matrix</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introduction to RBiotools</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>RBioTools facilitates comparative microbial genomics analyses directly in RStudio. By utilizing standard GenBank IDs, the package automates data retrieval and simplifies the creation of genomic figures.</p>
+<section id="section-1-prerequisites-installation" class="level2">
+<h2 class="anchored" data-anchor-id="section-1-prerequisites-installation">Section 1: Prerequisites &amp; Installation</h2>
+<p>To get started, please complete the following installations in order.</p>
+<section id="install-r-and-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="install-r-and-rstudio">1. Install R and RStudio</h3>
+<p>You need both the programming language (R) and the interface (RStudio).</p>
+<ul>
+<li><strong>Step A:</strong> Download and install <strong>R</strong> from <a href="https://cran.r-project.org/">The R Project</a>.</li>
+<li><strong>Step B:</strong> Download and install <strong>RStudio Desktop</strong> from <a href="https://posit.co/download/rstudio-desktop/">Posit</a>.</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> Ensure you download the correct versions for your specific operating system (Windows, macOS, or Linux).</p>
+</blockquote>
+</section>
+<section id="install-build-tools" class="level3">
+<h3 class="anchored" data-anchor-id="install-build-tools">2. Install Build Tools</h3>
+<p>You need specific tools to compile R packages from source. <strong>Select your operating system below:</strong></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Windows Users</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Mac Users</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><strong>Install Rtools</strong></p>
+<p>You must install <strong>Rtools</strong> to build packages on Windows.</p>
+<ol type="1">
+<li><p>Download <strong>Rtools42</strong> (or the latest version compatible with your R version) from <a href="https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html">CRAN Rtools</a>.</p></li>
+<li><p>Run the installer and follow the default instructions.</p></li>
+</ol>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><strong>Install Xcode Command Line Tools</strong></p>
+<p>You need Xcode tools to compile packages on macOS.</p>
+<ol type="1">
+<li><p>Open your <strong>Terminal</strong> (Press <code>Cmd + Space</code>, type “Terminal”, and hit Enter).</p></li>
+<li><p>Copy and paste the following command, then press Enter: <code>xcode-select --install</code></p></li>
+<li><p>A pop-up window will appear asking for confirmation. Click <strong>Install</strong> and wait for the process to finish.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="setup-your-workspace" class="level3">
+<h3 class="anchored" data-anchor-id="setup-your-workspace">3. Setup Your Workspace</h3>
+<p>Designate a specific folder on your computer to act as your <strong>Working Directory</strong>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Suggestion
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Create a folder named <code>RBiotools</code> in your Documents folder. Keep all your scripts and data here to avoid “File Not Found” errors later.</p>
+</div>
+</div>
+</section>
+<section id="download-workshop-files" class="level3">
+<h3 class="anchored" data-anchor-id="download-workshop-files">4. Download Workshop Files</h3>
+<p>Download the entire repository as a ZIP file.</p>
+<ol type="1">
+<li><strong>Go to the GitHub Repository:</strong> <a href="https://github.com/yao-laboratory/RBiotools">Click here to open the repository</a>.</li>
+<li><strong>Find the “Code” Button:</strong> Look for the green <strong>&lt;&gt; Code</strong> button near the top-right of the file list.</li>
+<li><strong>Download ZIP:</strong> Click the button and select <strong>Download ZIP</strong> from the dropdown menu.</li>
+<li><strong>Extract the Files:</strong>
+<ul>
+<li>Locate the downloaded <code>.zip</code> file on your computer.</li>
+<li>Right-click and select <strong>Extract All</strong> (Windows) or double-click it (Mac).</li>
+<li>Move the extracted folder to your <strong>Working Directory</strong> (e.g., <code>Documents/RBiotools</code>).</li>
+</ul></li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/downloadzip.png" class="img-fluid figure-img"></p>
+<figcaption>Downloading the repository as a ZIP file</figcaption>
+</figure>
+</div>
+</section>
+<section id="launch-verify" class="level3">
+<h3 class="anchored" data-anchor-id="launch-verify">5. Launch &amp; Verify</h3>
+<ol type="1">
+<li><p>Open <strong>RStudio</strong>.</p></li>
+<li><p>Go to <strong>File</strong> <span class="math inline">\(\rightarrow\)</span> <strong>Open File…</strong> and select your <code>getting-started.R</code> script.</p></li>
+<li><p><strong>Check your R Version:</strong></p>
+<p>Run the command below in your Console to ensure you are using a compatible version of R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ol>
+<blockquote class="blockquote">
+<p><strong>Compatibility Note:</strong> These instructions were tested with <strong>R version 4.5.2 (2025-10-31)</strong>. Older versions may behave differently.</p>
+</blockquote>
+</section>
+</section>
+<section id="section-2-install-packages-and-rbiotools" class="level1">
+<h1>Section 2: Install Packages and RBioTools</h1>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> Use the copy icon (clipboard) in the top-right of the code blocks to easily copy commands.</p>
+</blockquote>
+<section id="install-dependencies" class="level3">
+<h3 class="anchored" data-anchor-id="install-dependencies">1. Install Dependencies</h3>
+<p>Run the following code to install the basic dependencies required for <code>RBioTools</code>. You only need to run this step <strong>once</strong> (the first time you set up R).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Install RMarkdown dependencies</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rmarkdown"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Install RBioTools dependencies</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># These packages are not included in standard R installations</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>required_packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ape"</span>, <span class="st">"data.table"</span>, <span class="st">"fmsb"</span>, <span class="st">"ggplot2"</span>, <span class="st">"gplots"</span>, </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"grImport"</span>, <span class="st">"gridExtra"</span>, <span class="st">"pheatmap"</span>, <span class="st">"rentrez"</span>, </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"seqinr"</span>, <span class="st">"RCurl"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(required_packages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="install-bioconductor-packages" class="level3">
+<h3 class="anchored" data-anchor-id="install-bioconductor-packages">2. Install BioConductor Packages</h3>
+<p>Install <code>msa</code> and <code>pwalign</code> using the BiocManager.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Install BiocManager if missing</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"BiocManager"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Install msa and pwalign</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(<span class="st">"msa"</span>, <span class="st">"pwalign"</span>), <span class="at">force =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Troubleshooting msa
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If the msa installation fails with a “non-zero exit status” error, try installing the development version directly from GitHub: https://github.com/UBod/msa</p>
+</div>
+</div>
+</section>
+<section id="install-helper-tools-windows-only" class="level3">
+<h3 class="anchored" data-anchor-id="install-helper-tools-windows-only">3. Install Helper Tools (Windows Only)</h3>
+<p>If you are on Windows, you may need the <code>installr</code> package to handle specific installation tasks. <strong>Mac/Linux users can skip this step</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"installr"</span>, <span class="at">repos =</span><span class="st">"http://cran.us.r-project.org"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="load-libraries" class="level3">
+<h3 class="anchored" data-anchor-id="load-libraries">4. Load Libraries</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(msa)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(installr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Common Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You may see a warning message stating: “package(s) not installed when version(s) same as or greater than current”. You can safely ignore this.</p>
+</div>
+</div>
+</section>
+<section id="set-the-working-directory" class="level3">
+<h3 class="anchored" data-anchor-id="set-the-working-directory">5. Set the Working Directory</h3>
+<p>You must tell R where your files are located. Use the code tab below that matches your operating system.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Mac</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>Replace <code>YourName</code> with your actual username.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example Windows Path</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:/Users/YourName/Documents/RBiotools/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>Replace <code>YourName</code> with your actual username.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example Mac Path</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/YourName/Documents/RBiotools/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="install-rbiotools" class="level3">
+<h3 class="anchored" data-anchor-id="install-rbiotools">6. Install RBioTools</h3>
+<p>Install the package from the local source file.</p>
+<blockquote class="blockquote">
+<p><strong>Important:</strong> Ensure the file RBiotools_0.5.7.tar.gz is inside the Working Directory you set in Step 5.</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RBiotools_0.5.7.tar.gz"</span>, <span class="at">repos =</span> <span class="cn">NULL</span>, <span class="at">type =</span> <span class="st">"source"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="final-check" class="level3">
+<h3 class="anchored" data-anchor-id="final-check">7. Final Check</h3>
+<p>Load the library to verify installation was successful.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RBiotools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="section-3-identify-the-organisms" class="level1">
+<h1>Section 3: Identify the Organisms</h1>
+<p>The first step is to choose the set of organisms you wish to analyze.</p>
+<p><strong>What is an “Organism” in RBioTools?</strong></p>
+<p>In this package, an organism is defined by its identifier:</p>
+<ul>
+<li><strong>GenBank Accession IDs:</strong> Most organisms are specified using their unique ID from <a href="https://www.ncbi.nlm.nih.gov/genbank/">GenBank</a>.</li>
+<li><strong>Custom Genomes:</strong> Organisms <strong>not</strong> in GenBank can be added manually using the <code>addGenome()</code> function.</li>
+</ul>
+<section id="create-a-list-of-organisms" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-list-of-organisms">3.1 Create a List of Organisms</h2>
+<p>To get started, we will define a sample set of <em>E. coli</em> organisms.</p>
+<section id="define-the-e.-coli-list" class="level3">
+<h3 class="anchored" data-anchor-id="define-the-e.-coli-list">1. Define the <em>E. coli</em> List</h3>
+<p>Create a list of <em>E. coli</em> organisms and store them in an object named <code>eColi</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>eColi <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"AP012306"</span>,  <span class="co"># Escherichia coli str. K-12 substr. MDS42 DNA         3.976 Mb - smallest chromosome</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"KK583188"</span>,  <span class="co"># Escherichia coli DSM 30083 = JCM 1649 = ATCC 11775   4.907 Mb - type strain scaffold</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"U00096"</span>,    <span class="co"># Escherichia coli str. K-12 substr. MG1655            4.642 Mb - first E. coli genome sequenced</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CP000802"</span>,  <span class="co"># Escherichia coli HS                                  4.644 Mb - group A representative, commensal</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CP000800"</span>,  <span class="co"># Escherichia coli E24377A                             4.980 Mb - group B1 representative</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"AP009378"</span>,  <span class="co"># Escherichia coli SE15                                4.717 Mb - group B2 representative, commensal</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"FM180568"</span>,  <span class="co"># Escherichia coli 0127:H6 E2348/69                    4.966 Mb - group B2 representative, enteropathogenic</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CU928163"</span>,  <span class="co"># Escherichia coli UMN026                              5.202 Mb - group D representative</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CP008957"</span>,  <span class="co"># Escherichia coli O157:H7 str. EDL933                 5.547 Mp - group E representative</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CP027027"</span>,  <span class="co"># Shigella dysenteriae strain E670/74                  5.037 Mb - Shigella dysenteria representative</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CP026802"</span>,  <span class="co"># Shigella sonnei strain ATCC 29930                    4.975 Mb - Shigella sonnei representative</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CP026877"</span>,  <span class="co"># Shigella boydii strain ATCC 35964                    5.129 Mb - Shigella boydii representative</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CP026793"</span>,  <span class="co"># Shigella flexneri strain 74-1170                     4.734 Mb - Shigella flexneri representative</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CP015831"</span>   <span class="co"># Escherichia coli O157 strain 644-PT8                 5.831 Mb - largest chromosome</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="define-the-proteobacteria-list" class="level3">
+<h3 class="anchored" data-anchor-id="define-the-proteobacteria-list">2. Define the Proteobacteria List</h3>
+<p>Create a list of Proteobacteria organisms and store it in the variable <code>proteobacteria</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>proteobacteria <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CP018228"</span>, <span class="co"># Rhizobium leguminosarum strain Vaf-108              Phylum: Proteobacteria (alpha)</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CP017405"</span>, <span class="co"># Bordetella pertussis strain J448                    Phylum: Proteobacteria (beta)</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CP008957"</span>, <span class="co"># Escherichia coli O157:H7 str. EDL933                Phylum: Proteobacteria (gamma)</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"HG530068"</span>, <span class="co"># Pseudomonas aeruginosa PA38182                      Phylum: Proteobacteria (gamma)</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CP002031"</span>, <span class="co"># Geobacter sulfurreducens KN400                      Phylum: Proteobacteria (delta)</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CP002332"</span>  <span class="co"># Helicobacter pylori Gambia94/24                     Phylum: Proteobacteria (epsilon)</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="verify-and-download-data" class="level2">
+<h2 class="anchored" data-anchor-id="verify-and-download-data">3.2 Verify and Download Data</h2>
+<p>With your sample list ready, run&nbsp;<code>downloadGenBank()</code>&nbsp;to generate a data frame containing the biological details for each organism.</p>
+<section id="checking-the-e.-coli-list" class="level3">
+<h3 class="anchored" data-anchor-id="checking-the-e.-coli-list">Checking the <em>E. coli</em> List</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">downloadGenBank</span>(eColi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/downloadGenBank(eColi).png" class="img-fluid"></p>
+</section>
+<section id="checking-the-proteobacteria-list" class="level3">
+<h3 class="anchored" data-anchor-id="checking-the-proteobacteria-list">Checking the Proteobacteria List</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">downloadGenBank</span>(proteobacteria)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/downloadGenBank(proteobacteria).png" class="img-fluid"></p>
+</section>
+</section>
+</section>
+<section id="section-4-explore-functions-that-make-plots-and-figures" class="level1">
+<h1>Section 4: Explore functions that make plots and figures</h1>
+<section id="dendrograms" class="level2">
+<h2 class="anchored" data-anchor-id="dendrograms">4.1 Dendrograms</h2>
+<p>Generating a dendrogram from 16S rRNA genes is a straightforward process, though runtime varies based on the dataset size.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Runtime Notice
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Fetching data from GenBank may take several minutes. The <code>proteobacteria</code> list is shorter than the <code>eColi</code> list and will process much faster.</p>
+</div>
+</div>
+<section id="dendrogram-for-e.-coli" class="level3">
+<h3 class="anchored" data-anchor-id="dendrogram-for-e.-coli">Dendrogram for <em>E. coli</em></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This first plot is for the eColi and Shigella organisms</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dendrogram16S</span>(eColi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/dendrogram16S(eColi).png" class="img-fluid"></p>
+<p><img src="images/dendrogram16S_eColi_plot.png" class="img-fluid"></p>
+</section>
+<section id="dendrogram-for-proteobacteria" class="level3">
+<h3 class="anchored" data-anchor-id="dendrogram-for-proteobacteria">Dendrogram for Proteobacteria</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The second plot is for the proteobacteria organisms</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dendrogram16S</span>(proteobacteria)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/dendrogram16S(proteobacteria).png" class="img-fluid"></p>
+<p><img src="images/dendrogram16S_proteobacteria_plot.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="genome-atlas" class="level2">
+<h2 class="anchored" data-anchor-id="genome-atlas">4.2 Genome Atlas</h2>
+<p>To create a genome atlas for a specific organism from an existing list (like&nbsp;<code>eColi</code>&nbsp;or&nbsp;<code>proteobacteria</code>), simply select it using its index.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the first item (AP012306) using list indexing</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">createAtlas</span>(eColi[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/createAtlas(eColi).png" class="img-fluid"></p>
+<p><img src="images/GenomeAtlas_AP012306.png" class="img-fluid"></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+To view the file
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The graphic generated in this step is saved as an SVG file in your working directory.</p>
+<ol type="1">
+<li>Open your computer’s file browser (Explorer/Finder).</li>
+<li>Navigate to your working directory.</li>
+<li>Right-click the SVG file and select&nbsp;<strong>Open with</strong>.</li>
+<li>Choose a web browser (e.g., Chrome, Firefox, Safari) to view the image.</li>
+</ol>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/genome-atlas-reference-image.png" class="img-fluid figure-img"></p>
+<figcaption>Opening an SVG using a web browser</figcaption>
+</figure>
+</div>
+<section id="analyze-a-single-organism" class="level3">
+<h3 class="anchored" data-anchor-id="analyze-a-single-organism">Analyze a Single Organism</h3>
+<p>If you need to analyze an organism not currently in your list, simply locate its accession ID on GenBank and pass it directly to the function as shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Manually input a GenBank Accession ID</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">createAtlas</span>(<span class="st">"AP012306"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="amino-acid-usage-plot" class="level2">
+<h2 class="anchored" data-anchor-id="amino-acid-usage-plot">4.3 Amino Acid Usage Plot</h2>
+<p>The <code>plotUsage</code> function offers extensive customization options. Check the documentation to explore the full range of parameters.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotUsage</span>(eColi[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/plotUsage().png" class="img-fluid"></p>
+<p><img src="images/plotUsage_plot.png" class="img-fluid"></p>
+</section>
+<section id="codon-heat-map" class="level2">
+<h2 class="anchored" data-anchor-id="codon-heat-map">4.4 Codon Heat Map</h2>
+<p>Heat maps are most informative when analyzing <strong>distantly related</strong> organisms, such as our Proteobacteria group.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotHeatMapCodon</span>(proteobacteria)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/plotHeatMapCodon().png" class="img-fluid"></p>
+<p><img src="images/HeatMapCodon.png" class="img-fluid"></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+How to view the PNG in RStudio
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The graphic generated in this step is automatically saved as a PNG file.</p>
+<ol type="1">
+<li>Open the&nbsp;<strong>Files</strong>&nbsp;tab in RStudio (usually in the bottom-right pane).</li>
+<li>Navigate to your working directory.&nbsp;<em>(Tip: You may need to click the&nbsp;<strong>Refresh</strong>&nbsp;button if the file doesn’t appear immediately.)</em></li>
+<li>Click on&nbsp;<code>HeatMapCodon.png</code>&nbsp;to open it.</li>
+</ol>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/heat-codon-reference-image.png" class="img-fluid figure-img"></p>
+<figcaption>Opening the heat codon result from within RStudio.</figcaption>
+</figure>
+</div>
+</section>
+<section id="blast-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="blast-matrix">4.5 Blast Matrix</h2>
+<p>BLAST matrices function best with groups of <strong>closely related</strong> organisms (e.g., <em>E. coli</em>).</p>
+<p>To generate this visualization, we first build a <strong>Homology Matrix</strong> using <code>runLinclust()</code> and then plot it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Build the homology matrix (protein grouping)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>proteinGrouping <span class="ot">&lt;-</span> <span class="fu">runLinclust</span>(eColi)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Plot the BLAST matrix</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plotBlastMatrix</span>(proteinGrouping)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/BlastMatrix.png" class="img-fluid"></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+How to view the SVG file
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This output is saved as an SVG file.</p>
+<ol type="1">
+<li>Navigate to your working directory in your computer’s file browser.</li>
+<li>Right-click the file and select <strong>Open with → Web Browser</strong>.</li>
+</ol>
+</div>
+</div>
+<section id="understanding-the-homology-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-the-homology-matrix">Understanding the Homology Matrix</h3>
+<p>The <code>proteinGrouping</code> object created by <code>runLinclust</code> is a table organized as follows:</p>
+<ul>
+<li>Rows: Represent the different protein groups.</li>
+<li>Columns: Represent the individual organisms.</li>
+<li>Values: Represent the number of proteins an organism contributes to that group.</li>
+</ul>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

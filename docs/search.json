@@ -1,0 +1,86 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About RBioTools",
+    "section": "",
+    "text": "RBioTools is a comprehensive R package designed for Basic Comparative Microbial Genomics. It streamlines genomic analysis by providing functions parameterized by lists of GenBank accession numbers, along with R implementations of standard tools like Prodigal, RNAmmer, and Linclust."
+  },
+  {
+    "objectID": "about.html#package-details",
+    "href": "about.html#package-details",
+    "title": "About RBioTools",
+    "section": "Package Details",
+    "text": "Package Details\n\n\n\nVersion\n0.5.7 (2026-02-01)\n\n\nAuthors\nQiu Ming Yao, Jia Yee Wong\n\n\nMaintainers\nQiu Ming Yao, Jia Yee Wong\n\n\nLicense\nApache License 2.0\n\n\nCompilation\nYes (LinkingTo: Rcpp)"
+  },
+  {
+    "objectID": "about.html#dependencies",
+    "href": "about.html#dependencies",
+    "title": "About RBioTools",
+    "section": "Dependencies",
+    "text": "Dependencies\nRBioTools relies on the following R packages to function correctly:\nape, Biostrings, data.table, fmsb, ggplot2, gplots, graphics, grid, grImport, gridExtra, methods, msa, pheatmap, Rcpp, RCurl, rentrez, seqinr, stats, stringr, utils\n\n\n\n\n\n\nDocumentation\n\n\n\nFor detailed usage instructions and function references, please consult the full manual.\nView Full Manual"
+  },
+  {
+    "objectID": "getting_started.html",
+    "href": "getting_started.html",
+    "title": "Introduction to RBiotools",
+    "section": "",
+    "text": "RBioTools facilitates comparative microbial genomics analyses directly in RStudio. By utilizing standard GenBank IDs, the package automates data retrieval and simplifies the creation of genomic figures."
+  },
+  {
+    "objectID": "getting_started.html#section-1-prerequisites-installation",
+    "href": "getting_started.html#section-1-prerequisites-installation",
+    "title": "Introduction to RBiotools",
+    "section": "Section 1: Prerequisites & Installation",
+    "text": "Section 1: Prerequisites & Installation\nTo get started, please complete the following installations in order.\n\n1. Install R and RStudio\nYou need both the programming language (R) and the interface (RStudio).\n\nStep A: Download and install R from The R Project.\nStep B: Download and install RStudio Desktop from Posit.\n\n\nNote: Ensure you download the correct versions for your specific operating system (Windows, macOS, or Linux).\n\n\n\n2. Install Build Tools\nYou need specific tools to compile R packages from source. Select your operating system below:\n\nWindows UsersMac Users\n\n\nInstall Rtools\nYou must install Rtools to build packages on Windows.\n\nDownload Rtools42 (or the latest version compatible with your R version) from CRAN Rtools.\nRun the installer and follow the default instructions.\n\n\n\nInstall Xcode Command Line Tools\nYou need Xcode tools to compile packages on macOS.\n\nOpen your Terminal (Press Cmd + Space, type “Terminal”, and hit Enter).\nCopy and paste the following command, then press Enter: xcode-select --install\nA pop-up window will appear asking for confirmation. Click Install and wait for the process to finish.\n\n\n\n\n\n\n3. Setup Your Workspace\nDesignate a specific folder on your computer to act as your Working Directory.\n\n\n\n\n\n\nSuggestion\n\n\n\nCreate a folder named RBiotools in your Documents folder. Keep all your scripts and data here to avoid “File Not Found” errors later.\n\n\n\n\n4. Download Workshop Files\nDownload the entire repository as a ZIP file.\n\nGo to the GitHub Repository: Click here to open the repository.\nFind the “Code” Button: Look for the green &lt;&gt; Code button near the top-right of the file list.\nDownload ZIP: Click the button and select Download ZIP from the dropdown menu.\nExtract the Files:\n\nLocate the downloaded .zip file on your computer.\nRight-click and select Extract All (Windows) or double-click it (Mac).\nMove the extracted folder to your Working Directory (e.g., Documents/RBiotools).\n\n\n\n\n\nDownloading the repository as a ZIP file\n\n\n\n\n5. Launch & Verify\n\nOpen RStudio.\nGo to File \\(\\rightarrow\\) Open File… and select your getting-started.R script.\nCheck your R Version:\nRun the command below in your Console to ensure you are using a compatible version of R.\n\nsessionInfo()\n\n\n\nCompatibility Note: These instructions were tested with R version 4.5.2 (2025-10-31). Older versions may behave differently."
+  },
+  {
+    "objectID": "getting_started.html#create-a-list-of-organisms",
+    "href": "getting_started.html#create-a-list-of-organisms",
+    "title": "Introduction to RBiotools",
+    "section": "3.1 Create a List of Organisms",
+    "text": "3.1 Create a List of Organisms\nTo get started, we will define a sample set of E. coli organisms.\n\n1. Define the E. coli List\nCreate a list of E. coli organisms and store them in an object named eColi.\n\neColi &lt;- c(\n  \"AP012306\",  # Escherichia coli str. K-12 substr. MDS42 DNA         3.976 Mb - smallest chromosome\n  \"KK583188\",  # Escherichia coli DSM 30083 = JCM 1649 = ATCC 11775   4.907 Mb - type strain scaffold\n  \"U00096\",    # Escherichia coli str. K-12 substr. MG1655            4.642 Mb - first E. coli genome sequenced\n  \"CP000802\",  # Escherichia coli HS                                  4.644 Mb - group A representative, commensal\n  \"CP000800\",  # Escherichia coli E24377A                             4.980 Mb - group B1 representative\n  \"AP009378\",  # Escherichia coli SE15                                4.717 Mb - group B2 representative, commensal\n  \"FM180568\",  # Escherichia coli 0127:H6 E2348/69                    4.966 Mb - group B2 representative, enteropathogenic\n  \"CU928163\",  # Escherichia coli UMN026                              5.202 Mb - group D representative\n  \"CP008957\",  # Escherichia coli O157:H7 str. EDL933                 5.547 Mp - group E representative\n  \"CP027027\",  # Shigella dysenteriae strain E670/74                  5.037 Mb - Shigella dysenteria representative\n  \"CP026802\",  # Shigella sonnei strain ATCC 29930                    4.975 Mb - Shigella sonnei representative\n  \"CP026877\",  # Shigella boydii strain ATCC 35964                    5.129 Mb - Shigella boydii representative\n  \"CP026793\",  # Shigella flexneri strain 74-1170                     4.734 Mb - Shigella flexneri representative\n  \"CP015831\"   # Escherichia coli O157 strain 644-PT8                 5.831 Mb - largest chromosome\n) \n\n\n\n2. Define the Proteobacteria List\nCreate a list of Proteobacteria organisms and store it in the variable proteobacteria.\n\nproteobacteria &lt;- c(\n  \"CP018228\", # Rhizobium leguminosarum strain Vaf-108              Phylum: Proteobacteria (alpha)\n  \"CP017405\", # Bordetella pertussis strain J448                    Phylum: Proteobacteria (beta)\n  \"CP008957\", # Escherichia coli O157:H7 str. EDL933                Phylum: Proteobacteria (gamma)\n  \"HG530068\", # Pseudomonas aeruginosa PA38182                      Phylum: Proteobacteria (gamma)\n  \"CP002031\", # Geobacter sulfurreducens KN400                      Phylum: Proteobacteria (delta)\n  \"CP002332\"  # Helicobacter pylori Gambia94/24                     Phylum: Proteobacteria (epsilon)\n)"
+  },
+  {
+    "objectID": "getting_started.html#verify-and-download-data",
+    "href": "getting_started.html#verify-and-download-data",
+    "title": "Introduction to RBiotools",
+    "section": "3.2 Verify and Download Data",
+    "text": "3.2 Verify and Download Data\nWith your sample list ready, run downloadGenBank() to generate a data frame containing the biological details for each organism.\n\nChecking the E. coli List\n\ndownloadGenBank(eColi)\n\n\n\n\nChecking the Proteobacteria List\n\ndownloadGenBank(proteobacteria)"
+  },
+  {
+    "objectID": "getting_started.html#dendrograms",
+    "href": "getting_started.html#dendrograms",
+    "title": "Introduction to RBiotools",
+    "section": "4.1 Dendrograms",
+    "text": "4.1 Dendrograms\nGenerating a dendrogram from 16S rRNA genes is a straightforward process, though runtime varies based on the dataset size.\n\n\n\n\n\n\nRuntime Notice\n\n\n\nFetching data from GenBank may take several minutes. The proteobacteria list is shorter than the eColi list and will process much faster.\n\n\n\nDendrogram for E. coli\n\n# This first plot is for the eColi and Shigella organisms\ndendrogram16S(eColi)\n\n\n\n\n\nDendrogram for Proteobacteria\n\n# The second plot is for the proteobacteria organisms\ndendrogram16S(proteobacteria)"
+  },
+  {
+    "objectID": "getting_started.html#genome-atlas",
+    "href": "getting_started.html#genome-atlas",
+    "title": "Introduction to RBiotools",
+    "section": "4.2 Genome Atlas",
+    "text": "4.2 Genome Atlas\nTo create a genome atlas for a specific organism from an existing list (like eColi or proteobacteria), simply select it using its index.\n\n# Select the first item (AP012306) using list indexing\ncreateAtlas(eColi[[1]])\n\n\n\n\n\n\n\n\n\nTo view the file\n\n\n\nThe graphic generated in this step is saved as an SVG file in your working directory.\n\nOpen your computer’s file browser (Explorer/Finder).\nNavigate to your working directory.\nRight-click the SVG file and select Open with.\nChoose a web browser (e.g., Chrome, Firefox, Safari) to view the image.\n\n\n\n\n\n\nOpening an SVG using a web browser\n\n\n\nAnalyze a Single Organism\nIf you need to analyze an organism not currently in your list, simply locate its accession ID on GenBank and pass it directly to the function as shown below.\n\n# Manually input a GenBank Accession ID\ncreateAtlas(\"AP012306\")"
+  },
+  {
+    "objectID": "getting_started.html#amino-acid-usage-plot",
+    "href": "getting_started.html#amino-acid-usage-plot",
+    "title": "Introduction to RBiotools",
+    "section": "4.3 Amino Acid Usage Plot",
+    "text": "4.3 Amino Acid Usage Plot\nThe plotUsage function offers extensive customization options. Check the documentation to explore the full range of parameters.\n\nplotUsage(eColi[1])"
+  },
+  {
+    "objectID": "getting_started.html#codon-heat-map",
+    "href": "getting_started.html#codon-heat-map",
+    "title": "Introduction to RBiotools",
+    "section": "4.4 Codon Heat Map",
+    "text": "4.4 Codon Heat Map\nHeat maps are most informative when analyzing distantly related organisms, such as our Proteobacteria group.\n\nplotHeatMapCodon(proteobacteria)\n\n\n\n\n\n\n\n\n\nHow to view the PNG in RStudio\n\n\n\nThe graphic generated in this step is automatically saved as a PNG file.\n\nOpen the Files tab in RStudio (usually in the bottom-right pane).\nNavigate to your working directory. (Tip: You may need to click the Refresh button if the file doesn’t appear immediately.)\nClick on HeatMapCodon.png to open it.\n\n\n\n\n\n\nOpening the heat codon result from within RStudio."
+  },
+  {
+    "objectID": "getting_started.html#blast-matrix",
+    "href": "getting_started.html#blast-matrix",
+    "title": "Introduction to RBiotools",
+    "section": "4.5 Blast Matrix",
+    "text": "4.5 Blast Matrix\nBLAST matrices function best with groups of closely related organisms (e.g., E. coli).\nTo generate this visualization, we first build a Homology Matrix using runLinclust() and then plot it.\n\n# 1. Build the homology matrix (protein grouping)\nproteinGrouping &lt;- runLinclust(eColi)\n\n# 2. Plot the BLAST matrix\nplotBlastMatrix(proteinGrouping)\n\n\n\n\n\n\n\n\nHow to view the SVG file\n\n\n\nThis output is saved as an SVG file.\n\nNavigate to your working directory in your computer’s file browser.\nRight-click the file and select Open with → Web Browser.\n\n\n\n\nUnderstanding the Homology Matrix\nThe proteinGrouping object created by runLinclust is a table organized as follows:\n\nRows: Represent the different protein groups.\nColumns: Represent the individual organisms.\nValues: Represent the number of proteins an organism contributes to that group."
+  }
+]
