@@ -1,0 +1,25 @@
+project:
+  type: website
+
+website:
+  navbar:
+    title: "RBiotools"      
+    logo-href: about.qmd    
+    left:
+      - href: about.qmd
+        text: About
+        icon: house-fill
+      - href: getting_started.qmd
+        text: Getting Started
+        icon: info
+
+format:
+  html:
+    theme:
+      - lumen
+      - brand
+    css: styles.css
+    toc: true
+
+
+

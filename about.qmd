@@ -1,0 +1,27 @@
+---
+title: "About RBioTools"
+---
+
+**RBioTools** is a comprehensive R package designed for **Basic Comparative Microbial Genomics**. It streamlines genomic analysis by providing functions parameterized by lists of GenBank accession numbers, along with R implementations of standard tools like **Prodigal**, **RNAmmer**, and **Linclust**.
+
+## Package Details
+
+| | |
+|:---|:---|
+| **Version** | 0.5.7 (2026-02-01) |
+| **Authors** | Qiu Ming Yao, Jia Yee Wong |
+| **Maintainers** | Qiu Ming Yao, Jia Yee Wong |
+| **License** | Apache License 2.0|
+| **Compilation** | Yes (LinkingTo: Rcpp) |
+
+## Dependencies
+RBioTools relies on the following R packages to function correctly:
+
+`ape`, `Biostrings`, `data.table`, `fmsb`, `ggplot2`, `gplots`, `graphics`, `grid`, `grImport`, `gridExtra`, `methods`, `msa`, `pheatmap`, `Rcpp`, `RCurl`, `rentrez`, `seqinr`, `stats`, `stringr`, `utils`
+
+::: {.callout-note}
+## Documentation
+For detailed usage instructions and function references, please consult the full manual.
+
+[View Full Manual](https://github.com/yao-laboratory/RBiotools/blob/main/RBiotools-manual.pdf){.btn .btn-primary}
+:::
