@@ -62,7 +62,7 @@ Download the entire repository as a ZIP file.
     * Right-click and select **Extract All** (Windows) or double-click it (Mac).
     * Move the extracted folder to your **Working Directory** (e.g., `Documents/RBiotools`).
 
-![Downloading the repository as a ZIP file](downloadzip.png)
+![Downloading the repository as a ZIP file](images/downloadzip.png)
 
 ### 5. Launch & Verify
 
@@ -247,14 +247,14 @@ With your sample list ready, run `downloadGenBank()` to generate a data frame 
 downloadGenBank(eColi)
 ```
 
-![](downloadGenBank(eColi).png)
+![](images/downloadGenBank(eColi).png)
 
 ### Checking the Proteobacteria List
 ```{r, eval=FALSE}
 downloadGenBank(proteobacteria)
 ```
 
-![](downloadGenBank(proteobacteria).png)
+![](images/downloadGenBank(proteobacteria).png)
 
 # Section 4: Explore functions that make plots and figures
 
@@ -273,9 +273,9 @@ Fetching data from GenBank may take several minutes. The `proteobacteria` list i
 dendrogram16S(eColi)
 ```
 
-![](dendrogram16S(eColi).png)
+![](images/dendrogram16S(eColi).png)
 
-![](dendrogram16S_eColi_plot.png)
+![](images/dendrogram16S_eColi_plot.png)
 
 ### Dendrogram for Proteobacteria
 ```{r, eval=FALSE}
@@ -283,9 +283,9 @@ dendrogram16S(eColi)
 dendrogram16S(proteobacteria)
 ```
 
-![](dendrogram16S(proteobacteria).png)
+![](images/dendrogram16S(proteobacteria).png)
 
-![](dendrogram16S_proteobacteria_plot.png)
+![](images/dendrogram16S_proteobacteria_plot.png)
 
 ## 4.2 Genome Atlas
 
@@ -296,9 +296,9 @@ To create a genome atlas for a specific organism from an existing list (like `e
 createAtlas(eColi[[1]])
 ```
 
-![](createAtlas(eColi).png)
+![](images/createAtlas(eColi).png)
 
-![](GenomeAtlas_AP012306.png)
+![](images/GenomeAtlas_AP012306.png)
 
 ::: {.callout-tip}
 
@@ -312,7 +312,7 @@ The graphic generated in this step is saved as an SVG file in your working direc
 4. Choose a web browser (e.g., Chrome, Firefox, Safari) to view the image.
 :::
 
-![Opening an SVG using a web browser](genome-atlas-reference-image.png)
+![Opening an SVG using a web browser](images/genome-atlas-reference-image.png)
 
 ### Analyze a Single Organism
 
@@ -331,9 +331,9 @@ The `plotUsage` function offers extensive customization options. Check the docum
 plotUsage(eColi[1])
 ```
 
-![](plotUsage().png)
+![](images/plotUsage().png)
 
-![](plotUsage_plot.png)
+![](images/plotUsage_plot.png)
 
 ## 4.4 Codon Heat Map
 
@@ -343,9 +343,9 @@ Heat maps are most informative when analyzing **distantly related** organisms, s
 plotHeatMapCodon(proteobacteria)
 ```
 
-![](plotHeatMapCodon().png)
+![](images/plotHeatMapCodon().png)
 
-![](HeatMapCodon.png)
+![](images/HeatMapCodon.png)
 
 ::: {.callout-tip}
 
@@ -358,7 +358,7 @@ The graphic generated in this step is automatically saved as a PNG file.
 3. Click on `HeatMapCodon.png` to open it.
 :::
 
-![Opening the heat codon result from within RStudio.](heat-codon-reference-image.png)
+![Opening the heat codon result from within RStudio.](images/heat-codon-reference-image.png)
 
 ## 4.5 Blast Matrix
 
@@ -375,7 +375,7 @@ proteinGrouping <- runLinclust(eColi)
 plotBlastMatrix(proteinGrouping)
 ```
 
-![](BlastMatrix.png)
+![](images/BlastMatrix.png)
 
 ::: {.callout-tip}
 
