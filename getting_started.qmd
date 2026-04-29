@@ -26,9 +26,13 @@ You need specific tools to compile R packages from source. **Select your operati
 
 You must install **Rtools** to build packages on Windows.
 
-1.  Download **Rtools42** (or the latest version compatible with your R version) from [CRAN Rtools](https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html).
+1.  Download **Rtools45** (or the latest version compatible with your R version) from [CRAN Rtools](https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html).
 
-2.  Run the installer and follow the default instructions.
+::: {.callout-important}
+
+R Version Compatibility
+For R 4.5.0 and later, you must install Rtools45. Using an older version of Rtools will prevent RBiotools from compiling correctly.
+:::
 
 ## Mac Users
 **Install Xcode Command Line Tools**
@@ -61,6 +65,11 @@ Download the entire repository as a ZIP file.
     * Locate the downloaded `.zip` file on your computer.
     * Right-click and select **Extract All** (Windows) or double-click it (Mac).
     * Move the extracted folder to your **Working Directory** (e.g., `Documents/RBiotools`).
+
+::: {.callout-note}
+
+Once you extract the folder, verify that you see both the getting-started.R script and the RBiotools_0.5.7.tar.gz file. You will need both later!
+:::
 
 ![Downloading the repository as a ZIP file](images/downloadzip.png)
 
