@@ -9,8 +9,8 @@ title: "About RBioTools"
 | | |
 |:---|:---|
 | **Version** | 0.5.7 (2026-02-01) |
-| **Authors** | Qiu Ming Yao, Jia Yee Wong |
-| **Maintainers** | Qiu Ming Yao, Jia Yee Wong |
+| **Authors** | Qiuming Yao, Jia Yee Wong |
+| **Maintainers** | Qiuming Yao, Jia Yee Wong |
 | **License** | Apache License 2.0|
 | **Compilation** | Yes (LinkingTo: Rcpp) |
 
